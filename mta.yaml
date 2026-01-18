@@ -1,19 +1,17 @@
 _schema-version: "3.1"
 ID: btp-app
-version: 1
+version: 1.0.0
 
 modules:
   - name: btp-app
     type: java
-    path: target/btp-app-1.jar
+    path: .
     parameters:
       memory: 1G
       disk-quota: 1G
     properties:
       SPRING_PROFILES_ACTIVE: cloud
     build-parameters:
-      builder: custom
-      commands:
-        - mvn clean package -DskipTests
+      builder: maven
       build-result: target/btp-app-1.jar
 
