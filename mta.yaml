@@ -9,6 +9,8 @@ modules:
     parameters:
       memory: 1G
       disk-quota: 1G
+      routes:
+        - route: ss-app.cfapps.us10-001.hana.ondemand.com
     properties:
       SPRING_PROFILES_ACTIVE: cloud
     build-parameters:
