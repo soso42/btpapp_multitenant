@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>btpapp_multitenant</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>btpapp_multitenant</name>
+    <artifactId>btp-app</artifactId>
+    <version>1</version>
+    <name>btp-app</name>
     <description>btpapp_multitenant</description>
     <url/>
     <licenses>
