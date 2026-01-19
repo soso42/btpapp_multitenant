@@ -3,6 +3,25 @@ ID: btp-app
 version: 1.0.0
 
 modules:
+
+  - name: app-router
+    type: approuter.nodejs
+    path: approuter
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+      routes:
+        - route: approuter-ss.cfapps.us10-001.hana.ondemand.com
+    requires:
+      - name: xsuaa
+      - name: btp-app-api
+        group: destinations
+        properties:
+          name: backend-api      # The name used in xs-app.json
+          url: "~{url}"
+          forwardAuthToken: true
+
   - name: btp-app
     type: java
     path: .
@@ -10,10 +29,26 @@ modules:
       memory: 1G
       disk-quota: 1G
       routes:
-        - route: ss-app.cfapps.us10-001.hana.ondemand.com
+        - route: app-ss.cfapps.us10-001.hana.ondemand.com
+    provides:
+      # This 'exposes' the Java app's URL to other modules
+      - name: btp-app-api
+        properties:
+          url: https://app-ss.cfapps.us10-001.hana.ondemand.com
     properties:
       SPRING_PROFILES_ACTIVE: cloud
     build-parameters:
       builder: maven
       build-result: target/btp-app-1.jar
+    requires:
+      - name: xsuaa
+
+
+resources:
+  - name: xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: xsuaa/xs-security.json
 
